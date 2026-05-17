@@ -16,6 +16,7 @@ public class Intake {
     private final DcMotorEx intake;
 
     private final RGB ballLight;
+
     // Tune current levels
     double ONE_BALL = 2.0;
     double TWO_BALLS = 3.5;
