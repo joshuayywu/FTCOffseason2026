@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.config.subsystems;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
@@ -25,7 +26,7 @@ public class Intake {
     public Intake(HardwareMap hardwareMap) {
         intake = hardwareMap.get(DcMotorEx.class, "intake");
         intake.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-        intake.setDirection(DcMotor.Direction.REVERSE);
+        intake.setDirection(DcMotor.Direction.FORWARD);
 
         Servo rgbServo = hardwareMap.get(Servo.class, "rgb1");
         ballLight = new RGB(rgbServo);

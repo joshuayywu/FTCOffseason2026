@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.opmodes.test;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.config.subsystems.Intake;
 
@@ -9,9 +10,14 @@ import org.firstinspires.ftc.teamcode.config.subsystems.Intake;
 public class IntakeTest extends LinearOpMode {
     private Intake intake;
 
+    private Servo gate;
+    private boolean gateOpen = false;
+    private boolean lastI = false; // last intake
+
     @Override
     public void runOpMode() {
         intake = new Intake(hardwareMap);
+        gate = hardwareMap.get(Servo.class, "gate");
 
         waitForStart();
         while (opModeIsActive()) {
@@ -22,6 +28,17 @@ public class IntakeTest extends LinearOpMode {
                 intake.reverse();
             } else {
                 intake.stop();
+            }
+
+            boolean iPressed = gamepad1.y;
+            if (iPressed && !lastI) {
+                gateOpen = !gateOpen;
+            }
+            lastI = iPressed;
+            if (gateOpen) {
+                gate.setPosition(0.7);
+            } else {
+                gate.setPosition(0.2);
             }
 
             intake.update();
