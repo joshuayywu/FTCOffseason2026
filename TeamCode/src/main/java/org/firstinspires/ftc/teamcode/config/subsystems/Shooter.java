@@ -53,10 +53,10 @@ public class Shooter {
         flywheelMotorLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         flywheelMotorRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        flywheelMotorLeft.setDirection(DcMotorSimple.Direction.REVERSE);
-        flywheelMotorRight.setDirection(DcMotorSimple.Direction.FORWARD);
+        flywheelMotorLeft.setDirection(DcMotorSimple.Direction.FORWARD);
+        flywheelMotorRight.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        setPIDF(P, F);
+        setPIDF(33.2, 13.1);
         gate.setPosition(gateClosed);
         stateLight = new RGB(rgbServo);
     }

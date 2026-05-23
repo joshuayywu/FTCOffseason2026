@@ -35,9 +35,8 @@ public class FlywheelTune extends OpMode{
         flywheelMotorLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         flywheelMotorRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        // TEST PLEASE
-        flywheelMotorLeft.setDirection(DcMotorSimple.Direction.REVERSE);
-        flywheelMotorRight.setDirection(DcMotorSimple.Direction.FORWARD);
+        flywheelMotorLeft.setDirection(DcMotorSimple.Direction.FORWARD);
+        flywheelMotorRight.setDirection(DcMotorSimple.Direction.REVERSE);
 
         PIDFCoefficients pidfCoefficients = new PIDFCoefficients(P, 0, 0, F);
         flywheelMotorLeft.setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, pidfCoefficients);
@@ -102,6 +101,8 @@ public class FlywheelTune extends OpMode{
         telemetry.addData("Target Velocity", curTargetVelocity);
         telemetry.addData("Current Velocity (AV)", "%.2f", avgVelocity);
         telemetry.addData("Error", "%.2f",error);
+        telemetry.addData("raw power left", flywheelMotorLeft.getPower());
+        telemetry.addData("raw power right", flywheelMotorRight.getPower());
         telemetry.addLine("-----------------------");
         telemetry.addData("Tuning P", "%.4f (D-Pad U/D)", P);
         telemetry.addData("Tuning F", "%.4f (D-Pad L/R)", F);
