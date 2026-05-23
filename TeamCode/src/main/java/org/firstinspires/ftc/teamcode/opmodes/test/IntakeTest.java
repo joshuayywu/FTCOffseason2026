@@ -36,9 +36,9 @@ public class IntakeTest extends LinearOpMode {
             }
             lastI = iPressed;
             if (gateOpen) {
-                gate.setPosition(0.7);
+                gate.setPosition(1.0);
             } else {
-                gate.setPosition(0.2);
+                gate.setPosition(0.0);
             }
 
             intake.update();

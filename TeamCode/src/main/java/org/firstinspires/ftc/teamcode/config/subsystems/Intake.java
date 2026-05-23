@@ -19,9 +19,9 @@ public class Intake {
     private final RGB ballLight;
 
     // Tune current levels
-    double ONE_BALL = 2.0;
-    double TWO_BALLS = 3.5;
-    double THREE_BALLS = 5.0;
+    double ONE_BALL = 1.6;
+    double TWO_BALLS = 2.5;
+    double THREE_BALLS = 4.1;
 
     public Intake(HardwareMap hardwareMap) {
         intake = hardwareMap.get(DcMotorEx.class, "intake");
