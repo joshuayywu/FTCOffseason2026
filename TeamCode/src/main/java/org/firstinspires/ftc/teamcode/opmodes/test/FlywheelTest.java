@@ -28,7 +28,7 @@ public class FlywheelTest extends LinearOpMode {
 
         waitForStart();
         while (opModeIsActive()) {
-            if (gamepad1.a) {
+            if (gamepad2.a) {
                 flywheelMotorLeft.setPower(1);
                 flywheelMotorRight.setPower(1);
             } else {

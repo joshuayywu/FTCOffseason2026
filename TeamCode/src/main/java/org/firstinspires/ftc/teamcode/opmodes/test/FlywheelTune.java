@@ -52,7 +52,7 @@ public class FlywheelTune extends OpMode{
         // update telemetry
 
         // Press Y to toggle between high/low speed
-        if (gamepad1.yWasPressed()) {
+        if (gamepad2.yWasPressed()) {
             if (curTargetVelocity == highVelocity) {
                 curTargetVelocity = lowVelocity;
             } else {
@@ -61,24 +61,24 @@ public class FlywheelTune extends OpMode{
         }
 
         // Press B to change step sizes
-        if (gamepad1.bWasPressed()) {
+        if (gamepad2.bWasPressed()) {
             stepIndex = (stepIndex + 1) % stepSizes.length;
         }
 
         // Adjust F
-        if (gamepad1.dpadLeftWasPressed()) {
+        if (gamepad2.dpadLeftWasPressed()) {
             F -= stepSizes[stepIndex];
 
         }
-        if (gamepad1.dpadRightWasPressed()) {
+        if (gamepad2.dpadRightWasPressed()) {
             F += stepSizes[stepIndex];
         }
 
         // Adjust P
-        if (gamepad1.dpadDownWasPressed()) {
+        if (gamepad2.dpadDownWasPressed()) {
             P += stepSizes[stepIndex];
         }
-        if (gamepad1.dpadUpWasPressed()) {
+        if (gamepad2.dpadUpWasPressed()) {
             P -= stepSizes[stepIndex];
         }
 

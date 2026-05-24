@@ -22,15 +22,15 @@ public class IntakeTest extends LinearOpMode {
         waitForStart();
         while (opModeIsActive()) {
 
-            if (gamepad1.left_trigger > 0.2) {
+            if (gamepad2.left_trigger > 0.2) {
                 intake.intake();
-            } else if (gamepad1.left_bumper) {
+            } else if (gamepad2.left_bumper) {
                 intake.reverse();
             } else {
                 intake.stop();
             }
 
-            boolean iPressed = gamepad1.y;
+            boolean iPressed = gamepad2.y;
             if (iPressed && !lastI) {
                 gateOpen = !gateOpen;
             }
