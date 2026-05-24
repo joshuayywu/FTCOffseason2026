@@ -18,7 +18,7 @@ public class Shooter {
     private ShooterState state = ShooterState.IDLE;
     private final DcMotorEx flywheelMotorLeft;
     private final DcMotorEx flywheelMotorRight;
-    private final Servo gate;
+    public final Servo gate;
     private final RGB stateLight;
     private final ElapsedTime feedTimer = new ElapsedTime();
 
@@ -26,9 +26,9 @@ public class Shooter {
     private double targetVelocity = 0;
     private double velocityTolerance = 50;
 
-    private double gateClosed = 1.0;
-    private double gateOpen = 0.7;
-    private double feedTime = 0.25;
+    public double gateClosed = 0.0;
+    public double gateOpen = 0.5;
+    private double feedTime = 1.0;
 
     private double P = 0;
     private double F = 0;
@@ -151,7 +151,7 @@ public class Shooter {
     }
 
     public double getAverageVelocity() {
-        return (getLeftVelocity() + getRightVelocity()) / 2.0;
+        return (Math.abs(getLeftVelocity()) + Math.abs(getRightVelocity())) / 2.0;
     }
 
     public double getTargetVelocity() {

@@ -34,16 +34,17 @@ public class Tele extends LinearOpMode {
 
             if (gamepad2.left_trigger > 0.2) {
                 intake.intake();
+                shooter.gate.setPosition(shooter.gateClosed);
             } else if (gamepad2.left_bumper) {
                 intake.reverse();
             } else {
                 intake.stop();
             }
 
-            if (gamepad2.right_bumper) {
-                shooter.requestSpinUp(1600);
-            }
             if (gamepad2.x) {
+                shooter.requestSpinUp(2000);
+            }
+            if (gamepad2.right_bumper) {
                 shooter.requestFeed();
             }
             if (gamepad2.a) {
@@ -51,6 +52,11 @@ public class Tele extends LinearOpMode {
             }
 
             shooter.update();
+
+            if (shooter.getState() == Shooter.ShooterState.FEEDING) {
+                intake.intake();
+            }
+
             intake.update();
             intake.updateLight();
 
@@ -59,6 +65,8 @@ public class Tele extends LinearOpMode {
             telemetry.addData("Estimated Balls: ", intake.getBallCount());
 
             telemetry.addData("State", shooter.getState());
+            telemetry.addData("Left Velocity", shooter.getLeftVelocity());
+            telemetry.addData("Right Velocity", shooter.getRightVelocity());
             telemetry.addData("Target Velocity: ", shooter.getTargetVelocity());
             telemetry.addData("Current Velocity (AV)", "%.2f", shooter.getAverageVelocity());
             telemetry.addData("Error", "%.2f",shooter.getTargetVelocity() - shooter.getAverageVelocity());

@@ -2,12 +2,12 @@ package org.firstinspires.ftc.teamcode.config.subsystems;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-
-import org.firstinspires.ftc.teamcode.config.subsystems.RGB;
 import org.firstinspires.ftc.robotcore.external.navigation.CurrentUnit;
+
+// redundant import because RGB is in the same package as Intake
+// import org.firstinspires.ftc.teamcode.config.subsystems.RGB;
 
 public class Intake {
     public enum IntakeState {
