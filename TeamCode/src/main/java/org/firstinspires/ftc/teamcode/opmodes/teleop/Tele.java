@@ -53,7 +53,7 @@ public class Tele extends LinearOpMode {
 
             shooter.update();
 
-            if (shooter.getState() == Shooter.ShooterState.FEEDING) {
+            if (shooter.shouldRunTransfer()) {
                 intake.intake();
             }
 

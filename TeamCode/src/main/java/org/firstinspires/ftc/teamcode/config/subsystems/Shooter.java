@@ -29,6 +29,7 @@ public class Shooter {
     public double gateClosed = 0.0;
     public double gateOpen = 0.5;
     private double feedTime = 1.0;
+    private double gateOpenDelay = 0.25;
 
     private double P = 0;
     private double F = 0;
@@ -136,6 +137,10 @@ public class Shooter {
                 }
                 break;
         }
+    }
+
+    public boolean shouldRunTransfer() {
+        return state == ShooterState.FEEDING && feedTimer.seconds() >= gateOpenDelay;
     }
 
     public boolean atSpeed() {
