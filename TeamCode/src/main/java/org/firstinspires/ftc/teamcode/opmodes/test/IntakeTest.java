@@ -32,7 +32,7 @@ public class IntakeTest extends LinearOpMode {
 
             boolean iPressed = gamepad2.y;
             if (iPressed && !lastI) {
-                gateOpen = !gateOpen;
+                gateOpen = !gateOpen; // toggle
             }
             lastI = iPressed;
             if (gateOpen) {
