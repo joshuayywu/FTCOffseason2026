@@ -47,7 +47,7 @@ public class Tele extends LinearOpMode {
             rotate  =  gamepad1.right_stick_x;
 
             drivetrain.drive(forward, right, rotate);
-            // -----Intake-----
+            // -----Intake and Shooter-----
             if (gamepad2.left_trigger > 0.2) {
                 intake.intake();
                 shooter.gate.setPosition(shooter.gateClosed);
@@ -56,7 +56,7 @@ public class Tele extends LinearOpMode {
             } else {
                 intake.stop();
             }
-            // -----Shooter-----
+            
             if (gamepad2.x) {
                 shooter.requestSpinUp(2000);
             }
