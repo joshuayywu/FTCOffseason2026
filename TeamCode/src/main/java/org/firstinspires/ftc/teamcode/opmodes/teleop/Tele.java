@@ -36,6 +36,8 @@ public class Tele extends LinearOpMode {
         pinpoint.resetPosAndIMU();
 
         waitForStart();
+        // put after start because robot may still be moving during setup
+        // setting start position is one-time so not in loop
         pinpoint.setPosition(new Pose2D(DistanceUnit.INCH, START_X, START_Y, AngleUnit.DEGREES, START_HEADING));
 
         while (opModeIsActive()) {

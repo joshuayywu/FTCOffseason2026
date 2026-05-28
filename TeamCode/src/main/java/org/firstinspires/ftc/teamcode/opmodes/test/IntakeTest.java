@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 import org.firstinspires.ftc.teamcode.config.subsystems.Intake;
 
 
-@TeleOp(name= "Intake Transfer Test", group= "Test")
+@TeleOp(name = "Intake Transfer Test", group = "Test")
 public class IntakeTest extends LinearOpMode {
     private Intake intake;
 

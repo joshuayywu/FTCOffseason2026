@@ -12,9 +12,11 @@ public class Turret {
 
     private double targetAngle = 0;
 
+    // Tune PID!!!
     public static double kp = 0.035;
-    public static double ki = 0.002;
-    public static double kd = 0.0005;
+    // public static double ki = 0.002;
+    // public static double kd = 0.0005;
+
     private static final double GOAL_X = 0.0;
     private static final double GOAL_Y = 144.0;
     private static final double MIN_ANGLE = -180;
