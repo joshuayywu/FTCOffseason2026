@@ -14,7 +14,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
 @TeleOp (name = "MainTeleOp", group = "TeleOp")
-public class Tele extends LinearOpMode {
+public class MainTele extends LinearOpMode {
 
     private Drivetrain drivetrain;
     private Intake intake;
