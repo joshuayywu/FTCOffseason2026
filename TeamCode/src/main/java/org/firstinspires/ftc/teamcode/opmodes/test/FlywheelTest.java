@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 public class FlywheelTest extends LinearOpMode {
     public DcMotorEx flywheelMotorLeft;
     public DcMotorEx flywheelMotorRight;
-
+    private static final double TICKS_PER_REV = 28.0;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -36,8 +36,18 @@ public class FlywheelTest extends LinearOpMode {
                 flywheelMotorRight.setPower(0);
             }
 
-            telemetry.addData("Left Motor RPM", flywheelMotorLeft.getVelocity());
-            telemetry.addData("Right Motor RPM", flywheelMotorRight.getVelocity());
+            double leftTPS = flywheelMotorLeft.getVelocity();
+            double rightTPS = flywheelMotorRight.getVelocity();
+
+            double leftRPM = (leftTPS / TICKS_PER_REV) * 60.0;
+            double rightRPM = (rightTPS / TICKS_PER_REV) * 60.0;
+
+            telemetry.addData("Left TPS", "%.2f", leftTPS);
+            telemetry.addData("Right TPS", "%.2f", rightTPS);
+
+            telemetry.addData("Left RPM", "%.2f", leftRPM);
+            telemetry.addData("Right RPM", "%.2f", rightRPM);
+
             telemetry.update();
         }
     }
