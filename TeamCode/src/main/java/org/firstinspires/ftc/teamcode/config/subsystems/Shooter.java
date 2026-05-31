@@ -9,8 +9,6 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigurationType;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.config.subsystems.RGB;
-
 public class Shooter {
     public enum ShooterState {
         IDLE, SPINNING_UP, READY, FEEDING
@@ -18,11 +16,12 @@ public class Shooter {
     private ShooterState state = ShooterState.IDLE;
     private final DcMotorEx flywheelMotorLeft;
     private final DcMotorEx flywheelMotorRight;
+    private final Servo hoodServo;
     public final Servo gate;
     private final RGB stateLight;
     private final ElapsedTime feedTimer = new ElapsedTime();
 
-    // tune everything
+
     private double targetVelocity = 0;
     private double velocityTolerance = 50;
 
@@ -37,6 +36,7 @@ public class Shooter {
     public Shooter(HardwareMap hardwareMap) {
         flywheelMotorLeft = hardwareMap.get(DcMotorEx.class, "flywheelLeft");
         flywheelMotorRight = hardwareMap.get(DcMotorEx.class, "flywheelRight");
+        hoodServo = hardwareMap.get(Servo.class, "hood");
         gate = hardwareMap.get(Servo.class, "gate");
         Servo rgbServo = hardwareMap.get(Servo.class, "rgb2");
 
@@ -74,6 +74,7 @@ public class Shooter {
     public void setTargetVelocity(double targetVelocity) {
         this.targetVelocity = targetVelocity;
     }
+
     public void requestSpinUp(double velocity) {
         targetVelocity = velocity;
         state = ShooterState.SPINNING_UP;
@@ -167,4 +168,33 @@ public class Shooter {
         return state;
     }
 
+    public double getFlywheelSpeed(double distance) {
+        return 0.0000602816 * Math.pow(distance, 4)
+                - 0.0149498 * Math.pow(distance, 3)
+                + 1.34549 * Math.pow(distance, 2)
+                - 44.93056 * distance
+                + 1750;
+    }
+
+    public double getHoodAngle(double distance) {
+        return 1.80845e-7 * Math.pow(distance, 4)
+                - 0.000038098 * Math.pow(distance, 3)
+                + 0.00299479 * Math.pow(distance, 2)
+                - 0.105764 * distance
+                + 1.55;
+    }
+
+    public void aimForDistance(double distance) {
+
+        double velocity = getFlywheelSpeed(distance);
+        double hoodPos = getHoodAngle(distance);
+
+        // clamp between 1200 and 2500
+        velocity = Math.max(1200, Math.min(2500, velocity));
+        // clamp between 0.27 and 0.9
+        hoodPos = Math.max(0.27, Math.min(0.9, hoodPos));
+
+        setTargetVelocity(velocity);
+        hoodServo.setPosition(hoodPos);
+    }
 }

@@ -49,6 +49,20 @@ public class MainTele extends LinearOpMode {
             rotate  =  gamepad1.right_stick_x;
 
             drivetrain.drive(forward, right, rotate);
+            // -----Turret-----
+            pinpoint.update();
+            Pose2D pose = pinpoint.getPosition();
+            double robotX = pose.getX(DistanceUnit.INCH);
+            double robotY = pose.getY(DistanceUnit.INCH);
+            double robotHeadingDeg = pose.getHeading(AngleUnit.DEGREES);
+
+            if (gamepad2.left_bumper) {
+                double aimAngle = turret.autoAim(robotX, robotY, robotHeadingDeg);
+                turret.setTargetAngle(aimAngle);
+            }
+
+            turret.update();
+
             // -----Intake and Shooter-----
             if (gamepad2.left_trigger > 0.2) {
                 intake.intake();
@@ -58,9 +72,12 @@ public class MainTele extends LinearOpMode {
             } else {
                 intake.stop();
             }
-            
+
+            // Math.hypot() is distance formula
+            double distance = Math.hypot(Turret.GOAL_X - robotX, Turret.GOAL_Y - robotY);
+            shooter.aimForDistance(distance);
             if (gamepad2.x) {
-                shooter.requestSpinUp(2000);
+                shooter.requestSpinUp(shooter.getTargetVelocity());
             }
             if (gamepad2.right_bumper) {
                 shooter.requestFeed();
@@ -76,19 +93,6 @@ public class MainTele extends LinearOpMode {
             intake.update();
             intake.updateLight();
 
-            // -----Turret-----
-            pinpoint.update();
-            Pose2D pose = pinpoint.getPosition();
-            double robotX = pose.getX(DistanceUnit.INCH);
-            double robotY = pose.getY(DistanceUnit.INCH);
-            double robotHeadingDeg = pose.getHeading(AngleUnit.DEGREES);
-
-            if (gamepad2.left_bumper) {
-                double aimAngle = turret.autoAim(robotX, robotY, robotHeadingDeg);
-                turret.setTargetAngle(aimAngle);
-            }
-
-            turret.update();
 
             telemetry.addLine("---------- INTAKE ----------");
             telemetry.addData("State", intake.getState());
@@ -97,12 +101,17 @@ public class MainTele extends LinearOpMode {
 
             telemetry.addLine("---------- SHOOTER ----------");
             telemetry.addData("State", shooter.getState());
-            telemetry.addData("Left Velocity TPS", shooter.getLeftVelocity());
-            telemetry.addData("Right Velocity TPS", shooter.getRightVelocity());
+            // telemetry.addData("Left Velocity TPS", shooter.getLeftVelocity());
+            // telemetry.addData("Right Velocity TPS", shooter.getRightVelocity());
             telemetry.addData("Target Velocity TPS", shooter.getTargetVelocity());
             telemetry.addData("Average Velocity TPS", "%.2f", shooter.getAverageVelocity());
             telemetry.addData("Velocity Error", "%.2f",
                     shooter.getTargetVelocity() - shooter.getAverageVelocity());
+            telemetry.addData("Distance", "%.2f", distance);
+            telemetry.addData("Calculated Velocity",
+                    shooter.getFlywheelSpeed(distance));
+            telemetry.addData("Calculated Hood",
+                    shooter.getHoodAngle(distance));
 
             telemetry.addLine("---------- TURRET ----------");
             telemetry.addData("Robot X", "%.2f", robotX);
