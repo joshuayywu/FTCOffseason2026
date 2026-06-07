@@ -22,9 +22,9 @@ public class MainTele extends LinearOpMode {
     private Turret turret;
     private GoBildaPinpointDriver pinpoint;
 
-    private static final double START_X = 72;
-    private static final double START_Y = 72;
-    private static final double START_HEADING = 0;
+    public static final double START_X = 72;
+    public static final double START_Y = 72;
+    public static final double START_HEADING = 0;
 
     @Override
     public void runOpMode() throws InterruptedException {
