@@ -14,6 +14,7 @@ import com.qualcomm.hardware.gobilda.GoBildaPinpointDriver;
 import org.firstinspires.ftc.robotcore.external.navigation.Pose2D;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.teamcode.config.subsystems.Intake;
 
 @TeleOp(name = "Shooter Hood Tune", group = "Test")
 public class ShooterHoodTune extends LinearOpMode {
@@ -21,6 +22,7 @@ public class ShooterHoodTune extends LinearOpMode {
     private DcMotorEx flywheelLeft;
     private DcMotorEx flywheelRight;
     private Servo hood;
+    private Intake intake;
     private GoBildaPinpointDriver pinpoint;
 
     private static final double GOAL_X = 0;
@@ -34,12 +36,20 @@ public class ShooterHoodTune extends LinearOpMode {
 
     @Override
     public void runOpMode() {
+        intake = new Intake(hardwareMap);
 
         flywheelLeft = hardwareMap.get(DcMotorEx.class, "flywheelLeft");
         flywheelRight = hardwareMap.get(DcMotorEx.class, "flywheelRight");
         hood = hardwareMap.get(Servo.class, "hood");
         pinpoint = hardwareMap.get(GoBildaPinpointDriver.class, "pinpoint");
 
+        pinpoint.setOffsets(-76.2, -241.3, DistanceUnit.MM);
+        pinpoint.setEncoderResolution(com.qualcomm.hardware.gobilda.GoBildaPinpointDriver.GoBildaOdometryPods.goBILDA_4_BAR_POD);
+
+        pinpoint.setEncoderDirections(
+                com.qualcomm.hardware.gobilda.GoBildaPinpointDriver.EncoderDirection.FORWARD,
+                com.qualcomm.hardware.gobilda.GoBildaPinpointDriver.EncoderDirection.FORWARD
+        );
         pinpoint.resetPosAndIMU();
 
         flywheelLeft.setPIDFCoefficients(
@@ -100,6 +110,14 @@ public class ShooterHoodTune extends LinearOpMode {
             }
 
             hood.setPosition(hoodPosition);
+
+            if (gamepad2.left_trigger > 0.2) {
+                intake.intake();
+            } else if (gamepad2.left_bumper) {
+                intake.reverse();
+            } else {
+                intake.stop();
+            }
 
             double leftVelocity = flywheelLeft.getVelocity();
             double rightVelocity = flywheelRight.getVelocity();

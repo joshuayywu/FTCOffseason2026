@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.config.subsystems;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class Drivetrain {
@@ -11,7 +12,7 @@ public class Drivetrain {
     private final DcMotorEx backLeft;
     private final DcMotorEx backRight;
 
-    private double driveSpeedMultiplier = 1.0; // full speed 312
+    private double driveSpeedMultiplier = 0.8; // change later
 
     public Drivetrain(HardwareMap hardwareMap) {
         frontLeft = hardwareMap.get(DcMotorEx.class, "FL");
@@ -20,11 +21,11 @@ public class Drivetrain {
         backRight = hardwareMap.get(DcMotorEx.class, "BR");
 
         // Reverse the left side or right side depending on drivetrain
-        frontLeft.setDirection(DcMotor.Direction.REVERSE);
-        backLeft.setDirection(DcMotor.Direction.REVERSE);
+        frontLeft.setDirection(DcMotor.Direction.FORWARD);
+        backLeft.setDirection(DcMotor.Direction.FORWARD);
 
-        frontRight.setDirection(DcMotor.Direction.FORWARD);
-        backRight.setDirection(DcMotor.Direction.FORWARD);
+        frontRight.setDirection(DcMotor.Direction.REVERSE);
+        backRight.setDirection(DcMotor.Direction.REVERSE);
 
         frontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         frontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);

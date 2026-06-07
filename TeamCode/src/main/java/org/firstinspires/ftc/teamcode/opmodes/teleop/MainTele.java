@@ -33,6 +33,14 @@ public class MainTele extends LinearOpMode {
         shooter = new Shooter(hardwareMap);
         turret = new Turret(hardwareMap);
         pinpoint = hardwareMap.get(GoBildaPinpointDriver.class, "pinpoint");
+
+        pinpoint.setOffsets(-76.2, -241.3, DistanceUnit.MM);
+        pinpoint.setEncoderResolution(com.qualcomm.hardware.gobilda.GoBildaPinpointDriver.GoBildaOdometryPods.goBILDA_4_BAR_POD);
+
+        pinpoint.setEncoderDirections(
+                com.qualcomm.hardware.gobilda.GoBildaPinpointDriver.EncoderDirection.FORWARD,
+                com.qualcomm.hardware.gobilda.GoBildaPinpointDriver.EncoderDirection.FORWARD
+        );
         pinpoint.resetPosAndIMU();
 
         waitForStart();
@@ -45,8 +53,8 @@ public class MainTele extends LinearOpMode {
             // Variables that continuously change
             double forward, right, rotate;
             forward = -gamepad1.left_stick_y;
-            right = gamepad1.left_stick_x;
-            rotate  =  gamepad1.right_stick_x;
+            right = -gamepad1.left_stick_x;
+            rotate  =  -gamepad1.right_stick_x;
 
             drivetrain.drive(forward, right, rotate);
             // -----Turret-----
@@ -76,13 +84,13 @@ public class MainTele extends LinearOpMode {
             // Math.hypot() is distance formula
             double distance = Math.hypot(Turret.GOAL_X - robotX, Turret.GOAL_Y - robotY);
             shooter.aimForDistance(distance);
-            if (gamepad2.x) {
+            if (gamepad2.a) {
                 shooter.requestSpinUp(shooter.getTargetVelocity());
             }
             if (gamepad2.right_bumper) {
                 shooter.requestFeed();
             }
-            if (gamepad2.a) {
+            if (gamepad2.b) {
                 shooter.requestStop();
             }
             shooter.update();
