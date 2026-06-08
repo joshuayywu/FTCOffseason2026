@@ -25,6 +25,8 @@ public class MainTele extends LinearOpMode {
     public static final double START_X = 72;
     public static final double START_Y = 72;
     public static final double START_HEADING = 0;
+    private boolean autoTrack = false;
+    private boolean lastLeftBumper = false;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -34,7 +36,7 @@ public class MainTele extends LinearOpMode {
         turret = new Turret(hardwareMap);
         pinpoint = hardwareMap.get(GoBildaPinpointDriver.class, "pinpoint");
 
-        pinpoint.setOffsets(-76.2, -241.3, DistanceUnit.MM);
+        pinpoint.setOffsets(139.7, -63.5, DistanceUnit.MM);
         pinpoint.setEncoderResolution(com.qualcomm.hardware.gobilda.GoBildaPinpointDriver.GoBildaOdometryPods.goBILDA_4_BAR_POD);
 
         pinpoint.setEncoderDirections(
@@ -64,11 +66,19 @@ public class MainTele extends LinearOpMode {
             double robotY = pose.getY(DistanceUnit.INCH);
             double robotHeadingDeg = pose.getHeading(AngleUnit.DEGREES);
 
-            if (gamepad2.left_bumper) {
+            boolean currentLeftBumper = gamepad2.left_bumper;
+            if (currentLeftBumper && !lastLeftBumper) {
+                autoTrack = !autoTrack;
+
+                if (!autoTrack) {
+                    turret.setTargetAngle(0); // go back to home
+                }
+            }
+            lastLeftBumper = currentLeftBumper;
+            if (autoTrack) {
                 double aimAngle = turret.autoAim(robotX, robotY, robotHeadingDeg);
                 turret.setTargetAngle(aimAngle);
             }
-
             turret.update();
 
             // -----Intake and Shooter-----
@@ -85,7 +95,8 @@ public class MainTele extends LinearOpMode {
             double distance = Math.hypot(Turret.GOAL_X - robotX, Turret.GOAL_Y - robotY);
             shooter.aimForDistance(distance);
             if (gamepad2.a) {
-                shooter.requestSpinUp(shooter.getTargetVelocity());
+                // shooter.requestSpinUp(shooter.getTargetVelocity());
+                shooter.requestSpinUp(1600);
             }
             if (gamepad2.right_bumper) {
                 shooter.requestFeed();

@@ -15,8 +15,9 @@ public class TurretTest extends LinearOpMode {
 
         waitForStart();
         while(opModeIsActive()) {
-            // turret.manual(gamepad2.right_stick_x * 0.2);
+            turret.manual(gamepad2.right_stick_x * 0.2);
 
+            /*
             if (gamepad2.a) {
                 turret.setTargetAngle(0);
             }
@@ -26,9 +27,10 @@ public class TurretTest extends LinearOpMode {
             if (gamepad2.x) {
                 turret.setTargetAngle(-30);
             }
+            */
 
             turret.resetEncoderWhenHomePressed();
-            turret.update();
+            // turret.update();
 
             telemetry.addData("Angle", turret.getCurrentAngle());
             telemetry.addData("Pressed", turret.isHomePressed());

@@ -19,8 +19,8 @@ public class Turret {
 
     public static final double GOAL_X = 0.0;
     public static final double GOAL_Y = 144.0;
-    private static final double MIN_ANGLE = -180;
-    private static final double MAX_ANGLE = 180;
+    private static final double MIN_ANGLE = -112;
+    private static final double MAX_ANGLE = 132;
     private static final double TURRET_OFFSET_DEG = 0.0; // TUNE PLS
 
     public Turret(HardwareMap hardwareMap) {
