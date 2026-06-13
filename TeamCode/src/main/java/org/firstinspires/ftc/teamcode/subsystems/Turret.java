@@ -66,7 +66,7 @@ public class Turret {
         // compare target vs current
         // set motor power
         double currentAngle = getCurrentAngle();
-        double error = targetAngle - currentAngle;
+        double error = normalizeDegrees(targetAngle - currentAngle);
 
         double power = 0;
         power += error * kp;

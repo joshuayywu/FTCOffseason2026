@@ -47,8 +47,8 @@ public class ShooterHoodTune extends LinearOpMode {
         pinpoint.setEncoderResolution(com.qualcomm.hardware.gobilda.GoBildaPinpointDriver.GoBildaOdometryPods.goBILDA_4_BAR_POD);
 
         pinpoint.setEncoderDirections(
-                com.qualcomm.hardware.gobilda.GoBildaPinpointDriver.EncoderDirection.FORWARD,
-                com.qualcomm.hardware.gobilda.GoBildaPinpointDriver.EncoderDirection.FORWARD
+                com.qualcomm.hardware.gobilda.GoBildaPinpointDriver.EncoderDirection.REVERSED,
+                com.qualcomm.hardware.gobilda.GoBildaPinpointDriver.EncoderDirection.REVERSED
         );
         pinpoint.resetPosAndIMU();
 
@@ -118,6 +118,7 @@ public class ShooterHoodTune extends LinearOpMode {
             } else {
                 intake.stop();
             }
+            intake.update();
 
             double leftVelocity = flywheelLeft.getVelocity();
             double rightVelocity = flywheelRight.getVelocity();
