@@ -1,9 +1,9 @@
-package org.firstinspires.ftc.teamcode.opmodes.test;
+package org.firstinspires.ftc.teamcode.opmodes.tests;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.config.subsystems.Turret;
+import org.firstinspires.ftc.teamcode.subsystems.Turret;
 
 @TeleOp(name = "TurretTest", group = "Test")
 public class TurretTest extends LinearOpMode {

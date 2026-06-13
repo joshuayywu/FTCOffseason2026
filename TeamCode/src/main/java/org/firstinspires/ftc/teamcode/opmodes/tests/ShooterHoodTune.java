@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.opmodes.test;
+package org.firstinspires.ftc.teamcode.opmodes.tests;
 
 import static org.firstinspires.ftc.teamcode.opmodes.teleop.MainTele.START_X;
 import static org.firstinspires.ftc.teamcode.opmodes.teleop.MainTele.START_Y;
@@ -14,7 +14,7 @@ import com.qualcomm.hardware.gobilda.GoBildaPinpointDriver;
 import org.firstinspires.ftc.robotcore.external.navigation.Pose2D;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
-import org.firstinspires.ftc.teamcode.config.subsystems.Intake;
+import org.firstinspires.ftc.teamcode.subsystems.Intake;
 
 @TeleOp(name = "Shooter Hood Tune", group = "Test")
 public class ShooterHoodTune extends LinearOpMode {

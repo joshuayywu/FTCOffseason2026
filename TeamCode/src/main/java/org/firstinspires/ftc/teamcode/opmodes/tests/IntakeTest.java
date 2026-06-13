@@ -1,9 +1,9 @@
-package org.firstinspires.ftc.teamcode.opmodes.test;
+package org.firstinspires.ftc.teamcode.opmodes.tests;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.teamcode.config.subsystems.Intake;
+import org.firstinspires.ftc.teamcode.subsystems.Intake;
 
 
 @TeleOp(name = "Intake Transfer Test", group = "Test")
