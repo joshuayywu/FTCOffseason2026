@@ -22,8 +22,8 @@ public class SoloTele extends LinearOpMode {
     private Turret turret;
     private GoBildaPinpointDriver pinpoint;
 
-    public static final double START_X = 72;
-    public static final double START_Y = 72;
+    public static final double START_X = 0;
+    public static final double START_Y = 0;
     public static final double START_HEADING = 0;
     private boolean autoTrack = false;
     private boolean lastLeftBumper = false;
@@ -47,6 +47,7 @@ public class SoloTele extends LinearOpMode {
                 GoBildaPinpointDriver.EncoderDirection.FORWARD
         );
         pinpoint.resetPosAndIMU();
+
         sleep(400);
         waitForStart();
         // put after start because robot may still be moving during setup

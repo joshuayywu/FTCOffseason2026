@@ -22,8 +22,8 @@ public class MainTele extends LinearOpMode {
     private Turret turret;
     private GoBildaPinpointDriver pinpoint;
 
-    public static final double START_X = 72;
-    public static final double START_Y = 72;
+    public static final double START_X = 0.0;
+    public static final double START_Y = 0.0;
     public static final double START_HEADING = 0;
     private boolean autoTrack = false;
     private boolean lastLeftBumper = false;
@@ -97,6 +97,7 @@ public class MainTele extends LinearOpMode {
                 turret.setTargetAngle(aimAngle);
             }
             turret.update();
+
             // Relocalization
             if (gamepad1.y && !yWasPressed) {
                 pinpoint.setPosition(new Pose2D(DistanceUnit.INCH, START_X, START_Y, AngleUnit.DEGREES, START_HEADING

@@ -25,11 +25,11 @@ public class ShooterHoodTune extends LinearOpMode {
     private Intake intake;
     private GoBildaPinpointDriver pinpoint;
 
-    private static final double GOAL_X = 0;
-    private static final double GOAL_Y = 144;
+    private static final double GOAL_X = -72;
+    private static final double GOAL_Y = -72;
 
     private double targetVelocity = 1000; // ticks per second
-    private double hoodPosition = 0.03;
+    private double hoodPosition = 0.33;
 
     private static final double P = 33.2;
     private static final double F = 13.1;

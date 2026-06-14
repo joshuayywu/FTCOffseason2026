@@ -37,6 +37,8 @@ public class Shooter {
         flywheelMotorLeft = hardwareMap.get(DcMotorEx.class, "flywheelLeft");
         flywheelMotorRight = hardwareMap.get(DcMotorEx.class, "flywheelRight");
         hoodServo = hardwareMap.get(Servo.class, "hood");
+        hoodServo.setDirection(Servo.Direction.REVERSE);
+
         gate = hardwareMap.get(Servo.class, "gate");
         Servo rgbServo = hardwareMap.get(Servo.class, "rgb2");
 
@@ -169,19 +171,15 @@ public class Shooter {
     }
 
     public double getFlywheelSpeed(double distance) {
-        return 0.0000602816 * Math.pow(distance, 4)
-                - 0.0149498 * Math.pow(distance, 3)
-                + 1.34549 * Math.pow(distance, 2)
-                - 44.93056 * distance
-                + 1750;
+        return 7.24201 * distance + 922.48402;
+
     }
 
     public double getHoodAngle(double distance) {
-        return 1.80845e-7 * Math.pow(distance, 4)
-                - 0.000038098 * Math.pow(distance, 3)
-                + 0.00299479 * Math.pow(distance, 2)
-                - 0.105764 * distance
-                + 1.55;
+        return 0.0000014368 * distance * distance * distance
+                - 0.000362971 * distance * distance
+                + 0.0309257 * distance
+                - 0.459372;
     }
 
     public void aimForDistance(double distance) {
@@ -189,10 +187,10 @@ public class Shooter {
         double velocity = getFlywheelSpeed(distance);
         double hoodPos = getHoodAngle(distance);
 
-        // clamp between 1200 and 2500
-        velocity = Math.max(1200, Math.min(2500, velocity));
-        // clamp between 0.27 and 0.9
-        hoodPos = Math.max(0.22, Math.min(0.03, hoodPos));
+        // clamp between 1200 and 2000
+        velocity = Math.max(1200, Math.min(2000, velocity));
+        // clamp between 0.33 and 0.44
+        hoodPos = Math.max(0.33, Math.min(0.44, hoodPos));
 
         setTargetVelocity(velocity);
         hoodServo.setPosition(hoodPos);
