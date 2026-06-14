@@ -192,7 +192,7 @@ public class Shooter {
         // clamp between 1200 and 2500
         velocity = Math.max(1200, Math.min(2500, velocity));
         // clamp between 0.27 and 0.9
-        hoodPos = Math.max(0.27, Math.min(0.9, hoodPos));
+        hoodPos = Math.max(0.22, Math.min(0.03, hoodPos));
 
         setTargetVelocity(velocity);
         hoodServo.setPosition(hoodPos);

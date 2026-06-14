@@ -29,7 +29,7 @@ public class ShooterHoodTune extends LinearOpMode {
     private static final double GOAL_Y = 144;
 
     private double targetVelocity = 1000; // ticks per second
-    private double hoodPosition = 0.0;
+    private double hoodPosition = 0.03;
 
     private static final double P = 33.2;
     private static final double F = 13.1;
@@ -41,14 +41,15 @@ public class ShooterHoodTune extends LinearOpMode {
         flywheelLeft = hardwareMap.get(DcMotorEx.class, "flywheelLeft");
         flywheelRight = hardwareMap.get(DcMotorEx.class, "flywheelRight");
         hood = hardwareMap.get(Servo.class, "hood");
+        hood.setDirection(Servo.Direction.REVERSE);
         pinpoint = hardwareMap.get(GoBildaPinpointDriver.class, "pinpoint");
 
-        pinpoint.setOffsets(-76.2, -241.3, DistanceUnit.MM);
+        pinpoint.setOffsets(139.7, -63.5, DistanceUnit.MM);
         pinpoint.setEncoderResolution(com.qualcomm.hardware.gobilda.GoBildaPinpointDriver.GoBildaOdometryPods.goBILDA_4_BAR_POD);
 
         pinpoint.setEncoderDirections(
-                com.qualcomm.hardware.gobilda.GoBildaPinpointDriver.EncoderDirection.REVERSED,
-                com.qualcomm.hardware.gobilda.GoBildaPinpointDriver.EncoderDirection.REVERSED
+                com.qualcomm.hardware.gobilda.GoBildaPinpointDriver.EncoderDirection.FORWARD,
+                com.qualcomm.hardware.gobilda.GoBildaPinpointDriver.EncoderDirection.FORWARD
         );
         pinpoint.resetPosAndIMU();
 
@@ -89,14 +90,12 @@ public class ShooterHoodTune extends LinearOpMode {
             }
 
             // Hood tuning
-            if (gamepad2.dpad_right) {
-                hoodPosition -= 0.01;
-                sleep(100);
+            if (gamepad2.dpadRightWasPressed() ) {
+                hoodPosition += 0.01;
             }
 
-            if (gamepad2.dpad_left) {
-                hoodPosition += 0.01;
-                sleep(100);
+            if (gamepad2.dpadLeftWasPressed()) {
+                hoodPosition -= 0.01;
             }
 
             hoodPosition = Math.max(0.0, Math.min(1.0, hoodPosition)); // clamp 0-1

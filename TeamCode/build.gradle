@@ -47,6 +47,8 @@ repositories {
     maven {
         url "https://repo.dairy.foundation/snapshots"
     }
+
+    maven { url = "https://mymaven.bylazar.com/releases" }
 }
 
 dependencies {
@@ -56,6 +58,6 @@ dependencies {
     implementation("dev.frozenmilk.sinister:Sloth:0.2.4")
 
     // solvers
-    implementation "org.solverslib:core:0.3.4" // core
-    implementation "org.solverslib:pedroPathing:0.3.4" // pedroPathing
+    // implementation "org.solverslib:core:0.3.4" // core
+    // implementation "org.solverslib:pedroPathing:0.3.4" // pedroPathing
 }

@@ -6,22 +6,20 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.TouchSensor;
 
 public class Turret {
-    private DcMotorEx turret;
-    private TouchSensor turretLimitSwitch; // Magnetic Limit Switch
+    private final DcMotorEx turret;
+    private final TouchSensor turretLimitSwitch; // Magnetic Limit Switch
     private boolean wasPressed = false;
 
     private double targetAngle = 0;
 
     // Tune PID!!!
-    public static double kp = 0.012;
-    public double kI = 0.000;
+    public static double kp = 0.044;
     public static double kd = 0.0005;
 
     public static final double GOAL_X = 0.0;
-    public static final double GOAL_Y = 144.0;
+    public static final double GOAL_Y = 0.0;
     private static final double MIN_ANGLE = -112;
     private static final double MAX_ANGLE = 132;
-    private static final double TURRET_OFFSET_DEG = 0.0; // TUNE PLS
 
     public Turret(HardwareMap hardwareMap) {
         turret = hardwareMap.get(DcMotorEx.class, "turret");
@@ -107,7 +105,7 @@ public class Turret {
 
         double fieldAngleToGoal = Math.toDegrees(Math.atan2(dy, dx));
 
-        double turretAngle = fieldAngleToGoal - robotHeadingDeg + TURRET_OFFSET_DEG;
+        double turretAngle = fieldAngleToGoal - robotHeadingDeg + 180;
 
         return normalizeDegrees(turretAngle);
     }
